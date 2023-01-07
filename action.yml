@@ -1,6 +1,9 @@
 # action.yml
 name: 'Trigger Playbook Scan'
 description: 'Continuous, automated, comprehensive API Security Testing'
+branding: 
+    icon: 'aperture'
+    color: 'blue'
 inputs:
   apisec-username:
     description: 'The APIsec username with which the scans will be executed'
