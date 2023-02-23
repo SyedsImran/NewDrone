@@ -31,12 +31,12 @@ TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner
                     # For Project Registeration via OpenSpecUrl
                     --openApiSpecUrl) OPEN_API_SPEC_URL="$2"; shift;;
 
+                    # For Project Registeration via OpenSpecFile
+                    --openAPISpecFile) openText="$2"; shift;;
+
                     # For Project Registeration via OpenSpecUrl
                     --internal_OpenApiSpecUrl) INTERNAL_OPEN_API_SPEC_URL="$2"; shift;;
                     --specType) SPEC_TYPE="$2"; shift;;
-
-                    # For Project Registeration via OpenSpecFile
-                    --openAPISpecFile) openText="$2"; shift;;
 
                     # For Project Profile To be Updated with a scanner
                     --profileScanner) PROFILE_SCANNER="$2"; shift;;
