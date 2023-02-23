@@ -55,7 +55,7 @@ inputs:
     default: '' 
 
   apisec-internal-openapi-spec-url: 
-    description: 'OpenAPI Spec Url for registering a project like "http://netbanking.apisec.ai:8080/v2/api-docs" for special use-case'
+    description: 'OpenAPI Spec Url for registering a project like "http://netbanking.apisec.ai:8080/v2/api-docs" for special use-case like Github Actions'
     required: false
     default: ''
   apisec-spec-type:
