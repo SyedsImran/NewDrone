@@ -5,6 +5,10 @@ branding:
     icon: 'play'
     color: 'blue'
 inputs:
+  apisec-hostname:
+    description: 'HostName of APIsec'
+    required: true
+    default: ''
   apisec-username:
     description: 'The APIsec username with which the scans will be executed'
     required: true
