@@ -10,18 +10,20 @@ TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner
     while [ $# -gt 0 ]
     do
              case "$1" in
-        		    --host) FX_HOST="$2"; shift;;
+                    --host) FX_HOST="$2"; shift;;
                     --username) FX_USER="$2"; shift;;
                     --password) FX_PWD="$2"; shift;;
                     --project) FX_PROJECT_NAME="$2"; shift;;
                     --profile) JOB_NAME="$2"; shift;;                    
                     --scanner) REGION="$2"; shift;;
+                    --outputfile) OUTPUT_FILENAME="$2"; shift;;
+		    
                     --emailReport) FX_EMAIL_REPORT="$2"; shift;;
                     --reportType) FX_REPORT_TYPE="$2"; shift;;
 
                     # To Fail script execution on Vulnerable severity
                     --fail-on-vuln-severity) FAIL_ON_VULN_SEVERITY="$2"; shift;;
-                    --oas) OAS="$2"; shift;;
+
 
                     # For Refreshing Project Playbooks
                     --refresh-playbooks) REFRESH_PLAYBOOKS="$2"; shift;;
@@ -38,8 +40,7 @@ TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner
 
                     # For Project Profile To be Updated with a scanner
                     --profileScanner) PROFILE_SCANNER="$2"; shift;;
-
-                    --outputfile) OUTPUT_FILENAME="$2"; shift;;		    
+		    
                     --tags) FX_TAGS="$2"; shift;;
 
                     --tier) TIER="$2"; shift;;
