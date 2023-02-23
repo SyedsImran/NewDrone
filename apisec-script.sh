@@ -1,7 +1,7 @@
 #!/bin/bash
 # Begin
 
-TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner:,outputfile:,emailReport:,reportType:,fail-on-vuln-severity:,refresh-playbooks:,openApiSpecUrl:,openAPISpecFile:,internal_OpenApiSpecUrl:,specType:,profileScanner:,envName:,authName:,app_username:,app_password:,app_endPointUrl:,app_token_param:,tier:,tags:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner:,outputfile:,emailReport:,reportType:,fail-on-vuln-severity:,refresh-playbooks:,openAPISpecUrl:,openAPISpecFile:,internal_OpenAPISpecUrl:,specType:,profileScanner:,envName:,authName:,app_username:,app_password:,app_endPointUrl:,app_token_param:,tier:,tags:" -- -- "$@")
 
     [ $? -eq 0 ] || exit
 
@@ -29,13 +29,13 @@ TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner
                     --refresh-playbooks) REFRESH_PLAYBOOKS="$2"; shift;;
 
                     # For Project Registeration via OpenSpecUrl
-                    --openApiSpecUrl) OPEN_API_SPEC_URL="$2"; shift;;
+                    --openAPISpecUrl) OPEN_API_SPEC_URL="$2"; shift;;
 
                     # For Project Registeration via OpenSpecFile
                     --openAPISpecFile) openText="$2"; shift;;
 
                     # For Project Registeration via OpenSpecUrl
-                    --internal_OpenApiSpecUrl) INTERNAL_OPEN_API_SPEC_URL="$2"; shift;;
+                    --internal_OpenAPISpecUrl) INTERNAL_OPEN_API_SPEC_URL="$2"; shift;;
                     --specType) SPEC_TYPE="$2"; shift;;
 
                     # For Project Profile To be Updated with a scanner
