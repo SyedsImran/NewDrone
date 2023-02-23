@@ -29,8 +29,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-             apt update 
-             apt install -y wget curl jq yq
+             sudo apt update 
+             sudo apt install -y wget curl jq yq
 
       - name: Trigger Playbook Scan
         id: scan
@@ -45,6 +45,22 @@ jobs:
           apisec-email-report: "true"
           apisec-report-Type: "DEVELOPER_REPORT"
           apisec-fail-on-vuln-severity: "Critical"
+          apisec-internal-openapi-spec-url: "https://raw.githubusercontent.com/apisec-inc/Netbanking-Specs/main/qa-netbanking-spec.json"
+          apisec-spec-type: "json"
+          apisec-profile-scanner: "Super_2"
+          apisec-env-name: "Master"
+          apisec-auth-name: "Default"
+          apisec-app-username: "user11@netbanking.io"
+          apisec-app-password: "admin@123$"
+          apisec-app-endpoint-url: "https://apitest.apisec.ai/login"
+          apisec-app-token_param: ".token"
+          apisec-tier: "tier1"
+          
+          
+          
+          
+          
+          
           
           
           
