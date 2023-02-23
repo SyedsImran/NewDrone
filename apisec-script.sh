@@ -319,7 +319,7 @@ if [ "$OASFile" = true ]; then
 
 fi
 
-# For Project Registeration/Update via OpenSpecFile
+# For Project Registeration/Update via a combination of OpenSpecUrl and OpenSpecFile
 if [ "$INTERNAL_SPEC_FLAG" = true ]; then      
       fileExt=$(echo $SPEC_TYPE)
       if [[ "$fileExt" == *"yaml"* ]] ||  [[ "$fileExt" == *"yml"* ]]; then
@@ -684,17 +684,17 @@ while [ "$taskStatus" == "WAITING" -o "$taskStatus" == "PROCESSING" ]
 
 
                 if [ "$taskStatus" == "COMPLETED" ];then
-            echo "------------------------------------------------"
-                       # echo  "Run detail link ${FX_HOST}/${array[7]}"
+                        echo "------------------------------------------------"
+                        #echo  "Run detail link ${FX_HOST}/${array[7]}"
                         echo  "Run detail link ${FX_HOST}${array[7]}"
                         echo "-----------------------------------------------"
                         echo "Scan Successfully Completed"
                         echo " "
-			if [ "$OUTPUT_FILENAME" != "" ];then
+			            if [ "$OUTPUT_FILENAME" != "" ];then
                               sarifoutput=$(curl -s --location --request GET "${FX_HOST}/api/v1/projects/${projectId}/sarif" --header "Authorization: Bearer "$token"" | jq  '.data')
-		              #echo $sarifoutput >> $OUTPUT_FILENAME
+		                      #echo $sarifoutput >> $OUTPUT_FILENAME
                               echo $sarifoutput >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
-               		      echo "SARIF output file created successfully"
+               		          echo "SARIF output file created successfully"
                               echo " "
                         fi
                         if [ "$FAIL_ON_VULN_SEVERITY_FLAG" = true ]; then
@@ -791,44 +791,39 @@ while [ "$taskStatus" == "WAITING" -o "$taskStatus" == "PROCESSING" ]
                                           
                                     done
                                 echo "Found $triVulCount Trivial Severity Vulnerabilities!!!"
-                                echo " "
-
-
-                            
-                            
-                     case "$FAIL_ON_VULN_SEVERITY" in
-                         "Critical") for vul in ${severity}
-                                         do
+                                echo " "                                                        
+                                case "$FAIL_ON_VULN_SEVERITY" in 
+                                      "Critical") for vul in ${severity}
+                                                      do
                                                 
-                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] ; then
-                                                 echo "Failing script execution since we have found $cVulCount Critical severity vulnerabilities!!!"
-                                                 exit 1
+                                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] ; then
+                                                                    echo "Failing script execution since we have found $cVulCount Critical severity vulnerabilities!!!"
+                                                                    exit 1                                           
+                                                             fi                                             
+                                                      done
+                                      ;;
+                                      "High") for vul in ${severity}
+                                                      do
+                                                     
+                                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] ; then
+                                                                    echo "Failing script execution since we have found $cVulCount Critical and $hVulCount High severity vulnerabilities!!!"
+                                                                    exit 1
                                            
-                                             fi                                             
-                                        done
-                         ;;
-                        "High") for vul in ${severity}
-                                         do
+                                                             fi                                             
+                                                      done
+                                      ;;                     
+                                      "Medium") for vul in ${severity}
+                                                      do
                                                 
-                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] ; then
-                                                 echo "Failing script execution since we have found $cVulCount Critical and $hVulCount High severity vulnerabilities!!!"
-                                                 exit 1
+                                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] || [ "$vul" == "Medium"  ] ; then
+                                                                    echo "Failing script execution since we have found $cVulCount Critical, $hVulCount High and $medVulCount Medium severity vulnerabilities!!!"
+                                                                    exit 1
                                            
-                                             fi                                             
-                                        done
-                         ;;
-                        "Medium") for vul in ${severity}
-                                         do
-                                                
-                                             if  [ "$vul" == "Critical"  ] || [ "$vul" == "High"  ] || [ "$vul" == "Medium"  ] ; then
-                                                 echo "Failing script execution since we have found $cVulCount Critical, $hVulCount High and $medVulCount Medium severity vulnerabilities!!!"
-                                                 exit 1
-                                           
-                                             fi                                             
-                                        done
-                        ;;
-                      *)                          
-                     esac
+                                                             fi                                             
+                                                      done
+                                      ;;
+                                   *)                          
+                                esac
 
                         fi 
                         exit 0
