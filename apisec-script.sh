@@ -1,7 +1,7 @@
 #!/bin/bash
 # Begin
 
-TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner:,profileScanner:,emailReport:,reportType:,tags:,fail-on-vuln-severity:,openApiSpecUrl:,openAPISpecFile:,internal_OpenApiSpecUrl:,specType:,refresh-playbooks:,outputfile:,tier:,envName:,authName:,app_username:,app_password:,app_endPointUrl:,app_token_param:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner:,outputfile:,emailReport:,reportType:,fail-on-vuln-severity:,refresh-playbooks:,openApiSpecUrl:,openAPISpecFile:,internal_OpenApiSpecUrl:,specType:,profileScanner:,envName:,authName:,app_username:,app_password:,app_endPointUrl:,app_token_param:,tier:,tags:" -- -- "$@")
 
     [ $? -eq 0 ] || exit
 
@@ -41,17 +41,17 @@ TEMP=$(getopt -n "$0" -a -l "host:,username:,password:,project:,profile:,scanner
                     # For Project Profile To be Updated with a scanner
                     --profileScanner) PROFILE_SCANNER="$2"; shift;;
 		    
-                    --tags) FX_TAGS="$2"; shift;;
-
-                    --tier) TIER="$2"; shift;;
-
                     # For Project Credentials Update
                     --envName) ENV_NAME="$2"; shift;;                        
                     --authName) AUTH_NAME="$2"; shift;;       
                     --app_username) APP_USER="$2"; shift;;
                     --app_password) APP_PWD="$2"; shift;; 
                     --app_endPointUrl) ENDPOINT_URL="$2"; shift;;
-                    --app_token_param) TOKEN_PARAM="$2"; shift;;                                    
+                    --app_token_param) TOKEN_PARAM="$2"; shift;;  
+		    
+		    
+                    --tier) TIER="$2"; shift;;		    
+                    --tags) FX_TAGS="$2"; shift;;		    
                     --) shift;;
              esac
              shift;
