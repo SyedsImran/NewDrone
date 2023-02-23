@@ -74,7 +74,7 @@ inputs:
     description: 'Auth Name  like "Default" of existing environment of an existing project'
     required: false
     default: ''   
-  apisec-app-user-name:
+  apisec-app-username:
     description: 'Username of the OpenAPISpec application'
     required: false
     default: ''   
@@ -83,7 +83,7 @@ inputs:
     required: false
     default: '' 
   apisec-app-endpoint-url:
-    description: 'Token endpoint url of the OpenAPISpec application'
+    description: 'Token endpoint url of the OpenAPISpec application like https://netbanking.apisec.ai:8080/login'
     required: false
     default: ''
   apisec-app-token_param:
@@ -98,7 +98,7 @@ inputs:
 runs:
   using: "composite" 
   steps:
-    - run:  ${GITHUB_ACTION_PATH}/apisec-script.sh  --host "${{ inputs.apisec-hostname }}" --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }} --emailReport "${{ inputs.apisec-email-report }}" --reportType "${{ inputs.apisec-report-Type }}"  --fail-on-vuln-severity "${{ inputs.apisec-fail-on-vuln-severity }}"  --refresh-playbooks "${{ inputs.apisec-refresh-playbooks }}"  --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --openApiSpecFile "${{ inputs.apisec-openapi-spec-file }}" --internal_OpenApiSpecUrl "${{ inputs.apisec-internal-openapi-spec-url }}" --specType "${{ inputs.apisec-spec-type }}"  ----profileScanner  "${{ inputs.apisec-profile-scanner }}"   
+    - run:  ${GITHUB_ACTION_PATH}/apisec-script.sh  --host "${{ inputs.apisec-hostname }}" --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }} --emailReport "${{ inputs.apisec-email-report }}" --reportType "${{ inputs.apisec-report-Type }}"  --fail-on-vuln-severity "${{ inputs.apisec-fail-on-vuln-severity }}"  --refresh-playbooks "${{ inputs.apisec-refresh-playbooks }}"  --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --openApiSpecFile "${{ inputs.apisec-openapi-spec-file }}" --internal_OpenApiSpecUrl "${{ inputs.apisec-internal-openapi-spec-url }}" --specType "${{ inputs.apisec-spec-type }}"  --profileScanner  "${{ inputs.apisec-profile-scanner }}"  --envNname "${{ inputs.apisec-env-name }}" --authNname "${{ inputs.apisec-auth-name }}" --app_username "${{ inputs.apisec-app-username }}" --app_password "${{ inputs.apisec-app-password }}" --app_endPointUrl "${{ inputs.apisec-app-endpoint-url }}" --app_token_param "${{ inputs.apisec-app-token_param }}" --tier "${{ inputs.apisec-tier }}"
 #    - run:  ${GITHUB_ACTION_PATH}/apisec-vulnerability-check.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }}   --refresh-playbooks "${{ inputs.apisec-playbookCreatePolicy }}" --host "${{ inputs.apisec-hostname }}" --emailReport "${{ inputs.apisec-email-report }}" --fail-on-high-vulns "${{ inputs.apisec-fail-on-high-vulns }}" --oas "${{ inputs.apisec-oas }}" --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --scanAllProjects  "${{ inputs.apisec-scan-all-projects }}" 
 #    - run:  ${GITHUB_ACTION_PATH}/apisec-scan-trigger.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --projectname "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}" --outputfile "${{ inputs.sarif-result-file }}" --severity "${{ inputs.apisec-severity  }}" --threshold "${{ inputs.apisec-threshold }}" --playbookRegenerate "${{ inputs.apisec-playbook-regenerate }}" --hostname "${{ inputs.apisec-hostname }}" --emailReport "${{ inputs.apisec-email-report }}" --vulnerabilityPolicy "${{ inputs.apisec-vulnerability-policy }}"
 #    - run:  ${GITHUB_ACTION_PATH}/apisec-scan-trigger.sh "${{inputs.apisec-username}}" "${{ inputs.apisec-password }}" "${{ inputs.apisec-project }}" "${{ inputs.apisec-profile }}" "${{ inputs.apisec-region }}" "${{ inputs.sarif-result-file }}" "${{ inputs.apisec-severity  }}" "${{ inputs.apisec-threshold }}" "${{ inputs.apisec-playbook-regenerate }}" "${{ inputs.apisec-email-report }}"
