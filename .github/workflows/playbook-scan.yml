@@ -46,9 +46,9 @@ jobs:
           apisec-project: "netbanking2"
           apisec-profile: "Master"
           #apisec-region: "Supe_1"
-          apisec-email-report: true
+          apisec-email-report: "true"
           apisec-report-Type: "DEVELOPER_REPORT"
-          apisec-fail-on-vuln-severity: "Critica"
+          apisec-fail-on-vuln-severity: "Critical"
           apisec-internal-openapi-spec-url: "https://raw.githubusercontent.com/apisec-inc/Netbanking-Specs/main/qa-netbanking-spec.json"
           apisec-spec-type: "json"
           apisec-profile-scanner: "Super_3"
