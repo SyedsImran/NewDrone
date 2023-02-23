@@ -54,7 +54,7 @@ jobs:
           apisec-profile-scanner: "Super_2"
           apisec-env-name: "Master"
           apisec-auth-name: "Default"
-          apisec-app-username: "user11@netbanking.io"
+          apisec-app-username: "user1@netbanking.io"
           apisec-app-password: "admin@123$"
           apisec-app-endpoint-url: "https://apitest.apisec.ai/login"
           apisec-app-token_param: ".token"
