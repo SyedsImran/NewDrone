@@ -28,34 +28,43 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: |
+             apt update 
+             apt install -y wget curl jq yq
 
-      - name: Trigger APIsec scan
+      - name: Trigger Playbook Scan
         id: scan
-        uses: apisec-inc/apisec-run-scan@v1.0.5
+        uses: SyedsImran/NewDrone@v1.0.0
         with:
+          apisec-hostname: "https://developer.apisec.ai"
           apisec-username: ${{ secrets.apisec_username }}
           apisec-password: ${{ secrets.apisec_password }}
           apisec-project: "netbanking2"
           apisec-profile: "Master"
-          apisec-region: "Super_1"
+          apisec-region: "Super_3"
+          apisec-email-report: "true"
+          apisec-report-Type: "DEVELOPER_REPORT"
+          apisec-fail-on-vuln-severity: "Critical"
+          
+          
+          
 
 
 
-      - name: APIsec Playbook Regeneration
-        # You may pin to the exact commit or the version.
-        # uses: SyedsImran/NewDrone@d87c44bc8df00f0a624dd7532f8fd813248a590a
-        uses: SyedsImran/NewDrone@v1.0.0
-        with:
-          apisec-username: ${{ secrets.apisec_username }}
-          apisec-password: ${{ secrets.apisec_password }}
-          apisec-project: netbankingtet123
-          apisec-profile: Master
-          apisec-region: Super_1
-          sarif-result-file: sarif
-          apisec-host: "https://developer.apisec.ai"
-          apisec-email-report: true
-          apisec-report-type: RUN_SUMMARY
+#       - name: APIsec Playbook Regeneration
+#         # You may pin to the exact commit or the version.
+#         # uses: SyedsImran/NewDrone@d87c44bc8df00f0a624dd7532f8fd813248a590a
+#         uses: SyedsImran/NewDrone@v1.0.0
+#         with:
+#           apisec-username: ${{ secrets.apisec_username }}
+#           apisec-password: ${{ secrets.apisec_password }}
+#           apisec-project: netbankingtet123
+#           apisec-profile: Master
+#           apisec-region: Super_1
+#           sarif-result-file: sarif
+#           apisec-host: "https://developer.apisec.ai"
+#           apisec-email-report: true
+#           apisec-report-type: RUN_SUMMARY
 
 
 
