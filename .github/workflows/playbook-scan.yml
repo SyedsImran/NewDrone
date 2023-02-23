@@ -30,7 +30,11 @@ jobs:
       - name: Run a one-line script
         run: |
              sudo apt update 
-             sudo apt install -y wget curl jq yq
+             sudo apt install -y wget curl jq 
+             sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+             sudo chmod a+x /usr/local/bin/yq
+             yq --version
+             echo " "
 
       - name: Trigger Playbook Scan
         id: scan
