@@ -22,7 +22,7 @@ inputs:
     required: false
     default: 'Master'
   apisec-region:  
-    description: 'The location the scan will be executed in'
+    description: 'The location/scanner name where the scan will be executed in'
     required: false
     default: ''
   sarif-result-file:  
@@ -33,31 +33,73 @@ inputs:
     description: 'To trigger scan email reports, set this value as "true" or else "false"'
     required: false
     default: ''
-  apisec-fail-on-high-vulns: 
-    description: 'Set this as true to break pipeline execution for High and Critical severity. By default its set as false.'
-    required: false
-    default: 'false'     
-  apisec-oas:
-    description: 'To register a project, set this value as "true" or else "false"'
-    required: false
-    default: 'false'
-  apisec-openapi-spec-url: 
-    description: 'OpenAPI Spec Url for registering a project'
+  apisec-report-Type:
+    description: 'Type of Report to be send with trigger scan email, with possible valuess as these "RUN_SUMMARY", "RUN_DETAIL", "PROJECT_SUMMARY", "PROJECT_DETAIL", "PROJECT_PEN_TEST_REPORT", "DEVELOPER_REPORT", "COMPLIANCE"'
     required: false
     default: ''    
+  apisec-fail-on-vuln-severity: 
+    description: 'Pass the vulnerable seveity string to break pipeline execution with allowed values are Critical, High and Medium severity.'
+    required: false
+    default: ''   
   apisec-refresh-playbooks:
     description: 'To regenerate/refresh the playbooks of a project, set this value as "true" or else "false"'
     required: false
-    default: ''  
-  apisec-scan-all-projects:
-    description: 'To trigger scans on all projects, set this value as "true" or else "false"'
+    default: ''     
+  apisec-openapi-spec-url: 
+    description: 'OpenAPI Spec Url for registering a project like "http://netbanking.apisec.ai:8080/v2/api-docs"'
     required: false
-    default: 'false'    
+    default: ''    
+  apisec-openapi-spec-file: 
+    description: 'Path where OpenAPI Spec File is avaiable like "netbanking.json" if spec file available at present working directory'
+    required: false
+    default: '' 
+
+  apisec-internal-openapi-spec-url: 
+    description: 'OpenAPI Spec Url for registering a project like "http://netbanking.apisec.ai:8080/v2/api-docs" for special use-case'
+    required: false
+    default: ''
+  apisec-spec-type:
+    description: 'To be used while using "apisec-internal-openapi-spec-url parameter for type of spec like "json" for json-content specs and "yaml" for yaml-content specs'
+    required: false
+    default: ''
+  apisec-profile-scanner:
+    description: 'Name of the scanner like "US_EAST_1" with which profile like "Master"  needs to be configured'
+    required: false
+    default: ''
+  apisec-env-name:
+    description: 'Environment Name like "Master" of an existing project'
+    required: false
+    default: ''    
+  apisec-auth-name:
+    description: 'Auth Name  like "Default" of existing environment of an existing project'
+    required: false
+    default: ''   
+  apisec-app-user-name:
+    description: 'Username of the OpenAPISpec application'
+    required: false
+    default: ''   
+  apisec-app-password:
+    description: 'Password of the OpenAPISpec application'
+    required: false
+    default: '' 
+  apisec-app-endpoint-url:
+    description: 'Token endpoint url of the OpenAPISpec application'
+    required: false
+    default: ''
+  apisec-app-token_param:
+    description: 'Token param of the OpenAPISpec application like ".info.token" or ".token"'
+    required: false
+    default: ''  
+  apisec-tier:
+    description: 'Type of categories on scans needs to be triggered with possibles values "tier0", "tier1", "tier2", "tier3",'
+    required: false
+    default: ''      
  
 runs:
   using: "composite" 
   steps:
-    - run:  ${GITHUB_ACTION_PATH}/apisec-vulnerability-check.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }}   --refresh-playbooks "${{ inputs.apisec-playbookCreatePolicy }}" --host "${{ inputs.apisec-hostname }}" --emailReport "${{ inputs.apisec-email-report }}" --fail-on-high-vulns "${{ inputs.apisec-fail-on-high-vulns }}" --oas "${{ inputs.apisec-oas }}" --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --scanAllProjects  "${{ inputs.apisec-scan-all-projects }}" 
+    - run:  ${GITHUB_ACTION_PATH}/apisec-script.sh  --host "${{ inputs.apisec-hostname }}" --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }} --emailReport "${{ inputs.apisec-email-report }}" --reportType "${{ inputs.apisec-report-Type }}"  --fail-on-vuln-severity "${{ inputs.apisec-fail-on-vuln-severity }}"  --refresh-playbooks "${{ inputs.apisec-refresh-playbooks }}"  --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --openApiSpecFile "${{ inputs.apisec-openapi-spec-file }}" --internal_OpenApiSpecUrl "${{ inputs.apisec-internal-openapi-spec-url }}" --specType "${{ inputs.apisec-spec-type }}"  ----profileScanner  "${{ inputs.apisec-profile-scanner }}"   
+#    - run:  ${GITHUB_ACTION_PATH}/apisec-vulnerability-check.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --project "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}"  --outputfile  ${{ inputs.sarif-result-file }}   --refresh-playbooks "${{ inputs.apisec-playbookCreatePolicy }}" --host "${{ inputs.apisec-hostname }}" --emailReport "${{ inputs.apisec-email-report }}" --fail-on-high-vulns "${{ inputs.apisec-fail-on-high-vulns }}" --oas "${{ inputs.apisec-oas }}" --openApiSpecUrl "${{ inputs.apisec-openapi-spec-url }}" --scanAllProjects  "${{ inputs.apisec-scan-all-projects }}" 
 #    - run:  ${GITHUB_ACTION_PATH}/apisec-scan-trigger.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --projectname "${{ inputs.apisec-project }}" --profile "${{ inputs.apisec-profile }}" --scanner "${{ inputs.apisec-region }}" --outputfile "${{ inputs.sarif-result-file }}" --severity "${{ inputs.apisec-severity  }}" --threshold "${{ inputs.apisec-threshold }}" --playbookRegenerate "${{ inputs.apisec-playbook-regenerate }}" --hostname "${{ inputs.apisec-hostname }}" --emailReport "${{ inputs.apisec-email-report }}" --vulnerabilityPolicy "${{ inputs.apisec-vulnerability-policy }}"
 #    - run:  ${GITHUB_ACTION_PATH}/apisec-scan-trigger.sh "${{inputs.apisec-username}}" "${{ inputs.apisec-password }}" "${{ inputs.apisec-project }}" "${{ inputs.apisec-profile }}" "${{ inputs.apisec-region }}" "${{ inputs.sarif-result-file }}" "${{ inputs.apisec-severity  }}" "${{ inputs.apisec-threshold }}" "${{ inputs.apisec-playbook-regenerate }}" "${{ inputs.apisec-email-report }}"
       shell: bash
